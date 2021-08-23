@@ -128,22 +128,18 @@ function go()
         end
     end
 
-    println(lists)
-
     for i in 1:nlists
         name = "Speed%20lane%20$i"
 
         l = lists[i]
 
         r = oauth_request("POST", "https://api.twitter.com/1.1/lists/create.json?name=$name&mode=private")
-        println(r)
         b = JSON.parse(String(r.body))
         lid = b["id"]
 
         j = 1
         while j < length(l)
             id_str = join(j+99 <= length(l) ? l[j:(j+99)] : l[j:end], ",")
-            println(id_str)
             r = oauth_request(
                 "POST",
                 "https://api.twitter.com/1.1/lists/members/create_all.json?list_id=$lid",
